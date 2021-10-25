@@ -1,0 +1,14 @@
+(97, 'a')
+(98, 'b')
+(99, 'c')
+(1597, '"Read the numbers"')
+
+"""
+The data structured used in representation is HashTable.
+It will contain a hash function and a dictionary of elements.
+The hash function will calculate the hash code for each element.
+This hash code will be calculated as the sum of the ASCII codes of each character in the element.
+The elements dictionary has the hash code as the key, and as a value it can have either a
+single element associated with this hash code, or a list of elements associated with it.
+As operations, I implemented add, search and delete.
+"""

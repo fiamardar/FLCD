@@ -1,0 +1,18 @@
+start
+	number a, b, c;
+	print "Read the numbers";
+	read a, b, c;
+	if [a gt b]:
+		if [a gt c]:
+			print a;
+		else:
+			print c;
+		fi;
+	else:
+		if [b gt c]:
+			print b;
+		else:
+			print c;
+		fi;
+    fi;
+end

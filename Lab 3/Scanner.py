@@ -11,6 +11,7 @@ class Scanner:
     pif = []  # list of tuples
     errors = ""
     file = None
+    current_line = 0
 
     def __init__(self, symbol_table, filename):
         self._symbol_table = symbol_table
@@ -269,6 +270,7 @@ class Scanner:
         """
         with open(self.file, 'r') as file:
             for line in file:
+                self.current_line += 1
                 if self.check_line_for_strings(line) is False:
                     for word in line.split():
                         self.detect_token(word)
@@ -344,11 +346,11 @@ class Scanner:
                     for res in result:
                         self.detect_token(res)
             except UnboundLocalError:
-                self.errors += "Lexical Error at " + word + "\n"
+                self.errors += "Lexical Error at line " + str(self.current_line) + " at " + word + "\n"
             except TypeError:
-                self.errors += "Lexical Error at " + word + "\n"
+                self.errors += "Lexical Error at line " + str(self.current_line) + " at " + word + "\n"
             except RecursionError:
-                self.errors += "Lexical Error at " + word + "\n"
+                self.errors += "Lexical Error at line " + str(self.current_line) + " at " + word + "\n"
 
         else:
-            self.errors += "Lexical Error at " + word + "\n"
+            self.errors += "Lexical Error at line " + str(self.current_line) + " at " + word + "\n"

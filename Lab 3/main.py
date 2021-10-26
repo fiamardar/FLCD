@@ -27,7 +27,7 @@ def write_ST_to_file(st):
 
 if __name__ == '__main__':
     symbol_table = SymbolTable()
-    file = "token.txt"
+    file = "p1.txt"
     scanner = Scanner(symbol_table, file)
 
     if not scanner.errors:

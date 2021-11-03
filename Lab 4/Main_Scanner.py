@@ -1,4 +1,4 @@
-
+from FiniteAutomata import FiniteAutomata
 from SymbolTable import SymbolTable
 from Scanner import Scanner
 
@@ -26,9 +26,13 @@ def write_ST_to_file(st):
 
 
 if __name__ == '__main__':
+
+    integer_FA = FiniteAutomata("FA_integer.in")
+    identifier_FA = FiniteAutomata("FA_identifier.in")
     symbol_table = SymbolTable()
-    file = "p1.txt"
-    scanner = Scanner(symbol_table, file)
+    file = "p1/p1.txt"
+
+    scanner = Scanner(symbol_table, file, integer_FA, identifier_FA)
 
     if not scanner.errors:
         scanner.errors = "Lexically correct"

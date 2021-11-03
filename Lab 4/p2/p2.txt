@@ -1,0 +1,16 @@
+start
+	number a, b, c, x, delta, x1, x2;
+	print "Read the numbers";
+	read a, b, c;
+	delta = b ^ 2 - 4 * a * c;
+	if [delta eq 0]:
+		x = (-1) * b / 2 * a;
+		print x;
+	else if [delta gt 0]:
+		x1 = ((-1) * b + root(delta)) / 2 * a;
+		x2 = ((-1) * b - root(delta)) / 2 * a;
+		print "Solutiile sunt: ", x1, " si ", x2;
+	else:
+		print "Ecuatia nu are solutii reale ";
+	fi;
+end

@@ -1,0 +1,18 @@
+start
+	number a, b, c;
+	print 'Citim numerele';
+	read a, b, c;
+	if [a gt b]:
+		if [a gt c]:
+			print 7a;
+		else:
+			print c;
+		fi;
+	else:
+		if [b gt c]:
+			print b;
+		else:
+			print c;
+		fi;
+    fi;
+end

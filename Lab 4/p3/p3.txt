@@ -1,0 +1,10 @@
+start
+	number sum, n, current_number;
+	print "n = ";
+	read n;
+	for [i <- 1, n, 1]:
+		read current_number;
+		sum = sum + current_number;
+	rof;
+	print "Suma numerelor este ", sum;
+end

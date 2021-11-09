@@ -1,21 +1,21 @@
 class Transition:
-    initial_state = None
-    final_state = None
+    source_state = None
+    destination_state = None
     value = None
 
-    def __init__(self, initial_state, final_state, value):
-        self.initial_state = initial_state
-        self.final_state = final_state
+    def __init__(self, source_state, destination_state, value):
+        self.source_state = source_state
+        self.destination_state = destination_state
         self.value = value
 
-    def get_initial_state(self):
-        return self.initial_state
+    def get_source_state(self):
+        return self.source_state
 
-    def get_final_state(self):
-        return self.final_state
+    def get_destination_state(self):
+        return self.destination_state
 
     def get_value(self):
         return self.value
 
     def __str__(self):
-        return "δ(" + self.initial_state + ", " + self.value + ") = " + self.final_state
+        return "δ(" + self.source_state + ", " + self.value + ") = " + self.destination_state

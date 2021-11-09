@@ -71,17 +71,17 @@ class FiniteAutomata:
                     transition = Transition(elements[0], elements[1], elements[2])
                     self._set_of_transitions.append(transition)
 
-    def get_corresponding_transition(self, initial_state, value):
+    def get_corresponding_transition(self, source_state, value):
         """
         Returns the transition which has the initial state and the value specified
-        :param initial_state: The state from which the transition starts
+        :param source_state: The state from which the transition starts
         :param value: The value symbol of the transitions
         :return: The corresponding transition if found, None otherwise
         """
         corresponding_transition = None
 
         for transition in self._set_of_transitions:
-            if transition.get_initial_state() == initial_state and transition.get_value() == value:
+            if transition.get_source_state() == source_state and transition.get_value() == value:
                 corresponding_transition = transition
                 break
 
@@ -108,9 +108,8 @@ class FiniteAutomata:
             if transition is None:
                 return False
 
-            current_state = transition.get_final_state()
+            current_state = transition.get_destination_state()
 
         if current_state in self._set_of_final_states:
             return True
-
         return False

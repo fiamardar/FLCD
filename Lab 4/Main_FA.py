@@ -14,7 +14,7 @@ def print_menu():
 
 if __name__ == '__main__':
 
-    finite_automata = FiniteAutomata("FA_integer.in")
+    finite_automata = FiniteAutomata("FA.in")
 
     while True:
         print_menu()

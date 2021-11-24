@@ -1,0 +1,4 @@
+S
+a b E
+S
+S -> aSbS | bSaS | E

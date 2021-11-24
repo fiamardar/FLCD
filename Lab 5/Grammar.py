@@ -60,7 +60,7 @@ class Grammar:
                     production = Production(production_line_elems[0], values_list)
                     self.set_of_productions.append(production)
 
-    def get_productions_for_nonterminal(self, nonterminal):
+    def get_rhs_symbols_for_nonterminal(self, nonterminal):
         """
         Returns the set of symbol values for a given nonterminal
 
@@ -70,6 +70,20 @@ class Grammar:
         for production in self.set_of_productions:
             if production.starting_symbol == nonterminal:
                 return production.values_list
+
+    def get_productions_containing_nonterminal(self, nonterminal):
+        """
+        Returns the set of productions having on the rhs a given nonterminal
+
+        :param: nonterminal - the symbol to have on the rhs
+        :return: the list of productions
+        """
+        productions = []
+        for production in self.set_of_productions:
+            for value in production.values_list:
+                if nonterminal in value:
+                    productions.append(production)
+        return productions
 
     def cfg_check(self):
         """

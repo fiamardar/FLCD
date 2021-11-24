@@ -1,7 +1,7 @@
 S A B C
-a b c E
+b a g d e E
 S
-S -> AB
-A -> aS | cC
-B -> bS | E
-C -> aC | E
+S -> AbB | d
+A -> CAb | Ba
+B -> gSd | E
+C -> a | ed

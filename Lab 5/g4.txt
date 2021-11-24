@@ -1,0 +1,7 @@
+S A B C
+( ) i + * E
+S
+S -> AB
+A -> (S) | iC
+B -> +S | E
+C -> *A | E

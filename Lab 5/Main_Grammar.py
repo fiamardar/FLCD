@@ -1,5 +1,7 @@
 from Grammar import Grammar
+from ParseTable import ParseTable
 from Parser import Parser
+from ParserOutput import ParserOutput
 
 
 def print_menu():
@@ -10,12 +12,13 @@ def print_menu():
           "3. Set of productions\n"
           "4. Productions for a given nonterminal\n"
           "5. CFG check\n"
-          "6. Get FIRST and FOLLOW\n")
+          "6. Get FIRST and FOLLOW\n"
+          "7. Run Parser\n")
 
 
 if __name__ == '__main__':
 
-    grammar = Grammar("g4.txt")
+    grammar = Grammar("g3.txt")
 
     while True:
         print_menu()
@@ -40,6 +43,19 @@ if __name__ == '__main__':
             parser = Parser(grammar)
             parser.first()
             parser.follow()
+        elif result == 7:
+            # first = {'S': ['(', 'a'], 'A': ['+', 'E'], 'B': ['(', 'a'], 'C': ['*', 'E'], 'D': ['(', 'a']}
+            # follow = {'S': ['E', ')'], 'A': ['E', ')'], 'B': ['E', ')', '+'], 'C': ['E', ')', '+'],
+            #           'D': ['E', ')', '+', '*']}
+            # first = {'S': ['a', 'c']}
+            # follow = {'S': ['E', 'b']}
+            parser = Parser(grammar)
+            parser.first()
+            parser.follow()
+            parseTable = ParseTable(grammar, parser.first_dict, parser.follow_dict)
+            output = parseTable.run()
+            ParserOutput(output, grammar)
+            #print(tree_table)
         elif result == 0:
             break
         else:

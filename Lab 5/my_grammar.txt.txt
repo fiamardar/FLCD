@@ -1,0 +1,34 @@
+p = program
+S = start
+D = decllist
+C = cmpstmt
+E = end
+; = ;
+d = declaration
+t = type
+a = array
+I = IDENTIFIER
+n = number
+i = integer
+r = real
+s = statement
+P = simplstmt
+R = structstmt
+A = assignstmt
+e = expression
+T = term
+F = factor
+c = const
+
+p -> sD;C;e
+D -> d | d;D
+d -> tI
+t -> n | i | r
+C -> s | s;C
+s -> P | R
+P -> A
+A -> I=e
+e -> e+T | e-T | T
+T -> T*F | T/F | T^F | F
+F -> (e) | I | c
+R -> C | 

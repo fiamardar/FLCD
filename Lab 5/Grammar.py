@@ -33,6 +33,8 @@ class Grammar:
         """
         Reads line by line the content of the file and initialize the fields
         """
+        production_number = 1
+
         with open(self._file, 'r') as file:
             line_nr = 0
 
@@ -57,8 +59,11 @@ class Grammar:
                     values_list = []
                     for value in range(2, len(production_line_elems), 2):
                         values_list.append(production_line_elems[value])
-                    production = Production(production_line_elems[0], values_list)
-                    self.set_of_productions.append(production)
+
+                    for symbol in values_list:
+                        production = Production(production_line_elems[0], symbol, production_number)
+                        production_number += 1
+                        self.set_of_productions.append(production)
 
     def get_rhs_symbols_for_nonterminal(self, nonterminal):
         """
@@ -67,9 +72,22 @@ class Grammar:
         :param: nonterminal - the starting symbol of the productions
         :return: the list of symbols
         """
+        symbols = []
         for production in self.set_of_productions:
             if production.starting_symbol == nonterminal:
-                return production.values_list
+                symbols.append(production.ending_symbol)
+
+        return symbols
+
+    def get_production_number_for_production(self, start, end):
+        for production in self.set_of_productions:
+            if production.starting_symbol == start and production.ending_symbol == end:
+                return production.production_number
+
+    def get_production_for_prod_number(self, prod_number):
+        for production in self.set_of_productions:
+            if production.production_number == prod_number:
+                return production
 
     def get_productions_containing_nonterminal(self, nonterminal):
         """
@@ -80,9 +98,8 @@ class Grammar:
         """
         productions = []
         for production in self.set_of_productions:
-            for value in production.values_list:
-                if nonterminal in value:
-                    productions.append(production)
+            if nonterminal in production.ending_symbol:
+                productions.append(production)
         return productions
 
     def cfg_check(self):
@@ -98,8 +115,8 @@ class Grammar:
             if production.starting_symbol not in self.set_of_nonterminals:
                 return False
 
-            for symbol in production.values_list:
-                for char in symbol:
-                    if char not in self.set_of_terminals and char not in self.set_of_nonterminals:
-                        return False
+            # for symbol in production.values_list:
+            for char in production.ending_symbol:
+                if char not in self.set_of_terminals and char not in self.set_of_nonterminals:
+                    return False
         return True

@@ -158,45 +158,46 @@ class Parser:
 
                 # Parse each production and get the symbols containing the nonterminal
                 for production in productions:
-                    for value in production.values_list:
-                        if nonterminal in value:
-                            # Check if there are more occurrences of that nonterminal in the current value
-                            if value.count(nonterminal) >= 1:
-                                index = -1
-                                while value[index+1:].count(nonterminal) >= 1:
-                                    # Then get the index of the nonterminal and check if there is anything following it
-                                    index = value.find(nonterminal, index+1)
-                                    if index + 1 == len(value):
-                                        # if is the last one, we need to compute: L1(S) = L0(S) U L0(start_symbol)
-                                        last_follow_of_start_symbol = current_follow[production.starting_symbol]
-                                        last_follow_of_nonterminal = current_follow[nonterminal]
-                                        for elem in last_follow_of_nonterminal:
-                                            if elem not in new_list and elem != []:
-                                                new_list.append(elem)
+                    if nonterminal in production.ending_symbol:
+                        value = production.ending_symbol
+                        # Check if there are more occurrences of that nonterminal in the current value
+                        if value.count(nonterminal) >= 1:
+                            index = -1
+                            while value[index + 1:].count(nonterminal) >= 1:
+                                # Then get the index of the nonterminal and check if there is anything following it
+                                index = value.find(nonterminal, index + 1)
+                                if index + 1 == len(value):
+                                    # if is the last one, we need to compute: L1(S) = L0(S) U L0(start_symbol)
+                                    last_follow_of_start_symbol = current_follow[production.starting_symbol]
+                                    last_follow_of_nonterminal = current_follow[nonterminal]
+                                    for elem in last_follow_of_nonterminal:
+                                        if elem not in new_list and elem != []:
+                                            new_list.append(elem)
 
-                                        for elem in last_follow_of_start_symbol:
-                                            if elem not in new_list and elem != []:
-                                                new_list.append(elem)
+                                    for elem in last_follow_of_start_symbol:
+                                        if elem not in new_list and elem != []:
+                                            new_list.append(elem)
 
-                                    elif value[index+1] in terminals:
-                                        next_value = value[index+1]
-                                        # if the next is a terminal, it will be the follow so we add it
-                                        if next_value not in new_list:
-                                            new_list.append(next_value)
-                                    else:
-                                        next_value = value[index + 1]
-                                        # if the next is a nonterminal, return the first of it
-                                        first = self.first_dict[next_value]
-                                        if 'E' in first:
-                                            follow_to_add = current_follow[production.starting_symbol]
-                                            if follow_to_add:
-                                                for elem in follow_to_add:
-                                                    if elem not in new_list and elem != []:
-                                                        new_list.append(elem)
-                                        if first:
-                                            for elem in first:
-                                                if elem not in new_list and elem != [] and elem != 'E':
+                                elif value[index + 1] in terminals:
+                                    next_value = value[index + 1]
+                                    # if the next is a terminal, it will be the follow so we add it
+                                    if next_value not in new_list:
+                                        new_list.append(next_value)
+                                else:
+                                    next_value = value[index + 1]
+                                    # if the next is a nonterminal, return the first of it
+                                    first = self.first_dict[next_value]
+                                    if 'E' in first:
+                                        # If epsilon is in the First, we need to compute also L2(D)..
+                                        follow_to_add = current_follow[production.starting_symbol]
+                                        if follow_to_add:
+                                            for elem in follow_to_add:
+                                                if elem not in new_list and elem != []:
                                                     new_list.append(elem)
+                                    if first:
+                                        for elem in first:
+                                            if elem not in new_list and elem != [] and elem != 'E':
+                                                new_list.append(elem)
 
                 new_follow[nonterminal] = new_list
 
